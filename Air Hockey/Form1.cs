@@ -138,5 +138,79 @@ namespace Air_Hockey
             e.Graphics.FillEllipse(blueBrush, ballX, ballY, ballWidth, ballHeight);
 
         }
+
+        private void GameTimer_Tick(object sender, EventArgs e)
+        {
+            ballX += ballXSpeed;
+            ballY += ballYSpeed;
+
+            if (wDown == true && paddle1Y > 0)
+            {
+                paddle1Y -= paddleSpeed;
+            }
+
+            if (sDown == true && paddle1Y < this.Height - paddleHeight)
+            {
+                paddle1Y += paddleSpeed;
+            }
+            if (aDown == true && paddle1X > 0)
+            {
+                paddle1X -= paddleSpeed;
+            }
+
+            if (dDown == true && paddle1X < this.Width - paddleWidth)
+            {
+                paddle1X += paddleSpeed;
+            }
+
+            //move player 2 
+            if (upArrowDown == true && paddle2Y > 0)
+            {
+                paddle2Y -= paddleSpeed;
+            }
+
+            if (downArrowDown == true && paddle2Y < this.Height - paddleHeight)
+            {
+                paddle2Y += paddleSpeed;
+            }
+
+
+            //move player 2 on x axis
+            if (leftArrowDown == true && paddle2X > 0)
+            {
+                paddle2X -= paddleSpeed;
+            }
+            if (rightArrowDown == true && paddle2X < this.Width - paddleWidth)
+            {
+                paddle2X += paddleSpeed;
+            }
+
+            if (ballY < 0 || ballY > this.Height - ballHeight)
+            {
+                ballYSpeed *= -1;  // or: ballYSpeed = -ballYSpeed; 
+            }
+            if (ballX < 50 || ballX > 450 - ballWidth)
+            {
+                ballXSpeed *= -1;
+            }
+
+            Rectangle player1Rec = new Rectangle(paddle1X, paddle1Y, paddleWidth, paddleHeight);
+            Rectangle player2Rec = new Rectangle(paddle2X, paddle2Y, paddleWidth, paddleHeight);
+            Rectangle ballRec = new Rectangle(ballX, ballY, ballWidth, ballHeight);
+
+            if (player1Rec.IntersectsWith(ballRec))
+            {
+                ballXSpeed *= -1;
+                ballX = paddle1X + paddleWidth + 1;
+            }
+            if (player2Rec.IntersectsWith(ballRec))
+            {
+                ballXSpeed *= -1;
+                ballX = paddle1X + paddleWidth + 1;
+            }
+
+            Refresh();
+
+        }
     }
 }
