@@ -185,10 +185,11 @@ namespace Air_Hockey
                 paddle2X += paddleSpeed;
             }
 
-            if (ballY < 0 || ballY > this.Height - ballHeight)
-            {
-                ballYSpeed *= -1;  // or: ballYSpeed = -ballYSpeed; 
-            }
+
+            //if (ballY < 0 || ballY > this.Height - ballHeight)
+            //{
+            //    ballYSpeed *= -1;  // or: ballYSpeed = -ballYSpeed; 
+            //}
             if (ballX < 50 || ballX > 450 - ballWidth)
             {
                 ballXSpeed *= -1;
@@ -197,7 +198,27 @@ namespace Air_Hockey
             Rectangle player1Rec = new Rectangle(paddle1X, paddle1Y, paddleWidth, paddleHeight);
             Rectangle player2Rec = new Rectangle(paddle2X, paddle2Y, paddleWidth, paddleHeight);
             Rectangle ballRec = new Rectangle(ballX, ballY, ballWidth, ballHeight);
+            Rectangle netwall1 = new Rectangle(0, 0, 175, 0);
+            Rectangle netwall2 = new Rectangle(325, 450, 500, 450);
+            Rectangle netwall3 = new Rectangle(325, 0, 500, 0);
+            Rectangle netwall4 = new Rectangle(0, 450, 175, 0);
 
+            if(ballRec.IntersectsWith(netwall2))
+            {
+                ballYSpeed *= -1;
+            }
+            if (ballRec.IntersectsWith(netwall4))
+            {
+                ballYSpeed *= -1;
+            }
+            if (ballRec.IntersectsWith(netwall1))
+            {
+                ballYSpeed *= -1;
+            }
+            if (ballRec.IntersectsWith(netwall3))
+            {
+                ballYSpeed *= -1;
+            }
             if (player1Rec.IntersectsWith(ballRec))
             {
                 ballXSpeed *= -1;
@@ -207,6 +228,46 @@ namespace Air_Hockey
             {
                 ballXSpeed *= -1;
                 ballX = paddle1X + paddleWidth + 1;
+            }
+            
+            //ball scores give point
+            if(ballY > 450)
+            {
+                player1Score++;
+                player1Label.Text = $"{player1Score}";
+                ballX = 240;
+                ballY = 215;
+                paddle1X = 230;
+                paddle1Y = 10;
+                paddle2X = 230;
+                paddle2Y = 400;
+            }
+            if (ballY < -1)
+            {
+                player2Score++;
+                player2Label.Text = $"{player2Score}";
+                ballX = 240;
+                ballY = 215;
+                paddle1X = 230;
+                paddle1Y = 10;
+                paddle2X = 230;
+                paddle2Y = 400;
+            }
+            if(paddle1X < 50)
+            {
+                aDown = false;
+            }
+            else if(paddle1X > 450 - paddleWidth)
+            {
+                dDown = false;
+            }
+            if (paddle2X < 50)
+            {
+                leftArrowDown = false;
+            }
+            else if (paddle2X > 450 - paddleWidth)
+            {
+                rightArrowDown = false;
             }
 
             Refresh();
