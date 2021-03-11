@@ -47,6 +47,7 @@
             this.player1Label.Name = "player1Label";
             this.player1Label.Size = new System.Drawing.Size(29, 24);
             this.player1Label.TabIndex = 0;
+            this.player1Label.Text = "0";
             // 
             // player2Label
             // 
@@ -55,6 +56,7 @@
             this.player2Label.Name = "player2Label";
             this.player2Label.Size = new System.Drawing.Size(26, 24);
             this.player2Label.TabIndex = 1;
+            this.player2Label.Text = "0";
             // 
             // Form1
             // 
